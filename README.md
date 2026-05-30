@@ -6,12 +6,28 @@ Built a cloud-hosted, automated incident response environment designed to ingest
 
 
 ## Architectural Diagram & Workflow
-[Windows 11 Target] ──(Sysmon logs)──> [Wazuh Agent]
-                                            │
-                                    (Secure Tunnel)
-                                            ▼
-[Shuffle SOAR] <──(Webhook Alert)─── [Wazuh Manager Server]
-      │
-      ├─(API Check)───> [VirusTotal API] (Hash Enrichment)
-      ├─(API Poster)──> [TheHive Server]  (Auto-Case Creation)
-      └─(SMTP Relay)──> [Analyst Email]   (Immediate Notification)
+```mermaid
+graph TD
+    %% Define Styles
+    classDef endpoint fill:#1b2a4a,stroke:#00a8cc,stroke-width:2px,color:#fff;
+    classDef siem fill:#0c7b93,stroke:#00a8cc,stroke-width:2px,color:#fff;
+    classDef soar fill:#27496d,stroke:#00a8cc,stroke-width:2px,color:#fff;
+    classDef tool fill:#142834,stroke:#4b6584,stroke-width:1px,color:#d1d8e0;
+
+    %% Nodes
+    Win[Windows 11 Target]:::endpoint
+    WazAgent[Wazuh Agent]:::endpoint
+    WazMgr[Wazuh Manager Server]:::siem
+    Shuffle[Shuffle SOAR Platform]:::soar
+    VT[VirusTotal API<br><i>Hash Enrichment</i>]:::tool
+    TheHive[TheHive Server<br><i>Auto-Case Creation</i>]:::tool
+    Email[Analyst Email<br><i>Immediate Notification</i>]:::tool
+
+    %% Connections
+    Win -->|Sysmon Logs| WazAgent
+    WazAgent -->|Secure Tunnel| WazMgr
+    WazMgr -->|Webhook Alert JSON| Shuffle
+    
+    Shuffle -->|1. API Check| VT
+    Shuffle -->|2. API Poster| TheHive
+    Shuffle -->|3. SMTP Relay| Email
