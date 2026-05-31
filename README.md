@@ -34,5 +34,5 @@ graph TD
 ```
 
 ## Demo
-[![Watch the SOC Automation Demo](https://www.youtube.com/watch?v=41O4c81t-5U)
+[Watch the SOC Automation Demo](https://www.youtube.com/watch?v=41O4c81t-5U)
 
