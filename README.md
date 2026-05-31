@@ -31,7 +31,8 @@ graph TD
     Shuffle -->|1. API Check| VT
     Shuffle -->|2. API Poster| TheHive
     Shuffle -->|3. SMTP Relay| Email
+```
 
 ## Demo
-[![Watch the SOC Automation Demo](https://img.youtube.com/vi/41O4c81t-5U/maxresdefault.jpg)](https://www.youtube.com/watch?v=41O4c81t-5U)
+[![Watch the SOC Automation Demo](https://www.youtube.com/watch?v=41O4c81t-5U)
 
